@@ -20,14 +20,15 @@ const config = {
     },
     output: {
         path: path.resolve(__dirname, './dist'),
-        filename: '[name]-[hash:8].js',
+        filename: 'js/[name]-[hash:8].js',
         // publicPath表示打包后的文件的根目录路径(表示的是打包生成的index.html文件里面引用资源的前缀)
-        //假如原本index.html插入的js文件路径为/assets/js/xxxx.js，设置publicPath为./static/的话，则js文件的路径将会变为./static/assets/js/xxxx.js
+        // 假如原本index.html插入的js文件路径为/assets/js/xxxx.js，设置publicPath为./static/的话，则js文件的路径将会变为./static/assets/js/xxxx.js
+        // publicPath只有在index.html第一次插入的js资源或者css资源路径有效，对路由跳转后的页面的图片资源的路径不生效
         publicPath: process.env.NODE_ENV === 'development' ? '/' : './',
     },
     devtool: process.env.NODE_ENV === 'development' ? "source-map" : 'none',
     devServer: {
-        // contentBase: path.join(__dirname, './dist'),
+        // contentBase: path.join(__dirname, './dist/assets'),
         publicPath: '/',// 如果没有设置，则使用output.publicPath的值
         host: 'localhost',
         port: '8888',
@@ -41,7 +42,7 @@ const config = {
     },
     optimization: {
         splitChunks: {
-        chunks: 'all', 
+        chunks: 'async',
         minSize: 30000,
         maxSize: 0,
         minChunks: 1,
@@ -53,24 +54,28 @@ const config = {
             vueDing: {
                 test:/[\\/]node_modules[\\/](vue)|(vue-router)/,
                 priority: 3,
+                chunks: 'initial',
             },
             vantDing: {
                 test:/[\\/]node_modules[\\/](vant)/,
-                priority: 2,
+                priority: 2, // 优先级，假如cacheGroups里面存在多个组的test都匹配成功的话，优先级越高的奏效
+                chunks: 'initial',
             },
-            loadshlun: {
-                test:/[\\/]node_modules[\\/](loadsh)/,
+            axios: {
+                test:/[\\/]node_modules[\\/](axios)/,
                 priority: 1,
+                chunks: 'all',
+                minChunks: 1,
             },
-            vendors: {
-                test: /[\\/]node_modules[\\/]/,
-                priority: -10
-            },
-            default: {
-                minChunks: 2,
-                priority: -20,
-                reuseExistingChunk: true
-            }
+            // vendors: {
+            //     test: /[\\/]node_modules[\\/]/,
+            //     priority: -10
+            // },
+            // default: {
+            //     minChunks: 2,
+            //     priority: -20,
+            //     reuseExistingChunk: true
+            // }
         }
         },
     },
@@ -122,21 +127,23 @@ const config = {
                 ]
             },
             {
-                test: /\.(png|jpg|gif|svg)$/,
+                test: /\.(png|jpg|gif|svg)$/i,
                 use: [
                     {
                       loader: 'url-loader',
                       options: {
-                        limit: 100,
+                        limit: 1000,
                         // 把图片打包到dist目录下的assets文件下的images文件夹下
                         // name属性它会根据output.path的路径为根目录，然后做相对路径查找。
-                        // 例如：当前的output.path为/dist/js/,而name: path.posix.join('../assets', './images/[name]-[hash:5].[ext]')，
-                        //则图片打包出来的位置是相对于/dist/js目录下，先../assets,相对目录也就是到了/dist/assets,再在/dist/assets目录下执行./images/，
+                        // 例如：当前的output.path为/dist/js/,而name: path.posix.join('../', './assets/images/[name]-[hash:5].[ext]')，
+                        //则图片打包出来的位置是相对于/dist/js目录下，先../,相对目录也就是到了/dist/assets,再在/dist/assets目录下执行./assets/images/，
                         //最后也就是把图片打包到了/dist/assets/images/
                         name: path.posix.join('./', './assets/images/[name]-[hash:5].[ext]'),
+                        publicPath: process.env.NODE_ENV === 'development' ? '/' : './dist/', //如果不设置publicPath，那么打包后的图片路径将是./assets/images/xxxx.jpg。
+                        // 如果publicPath: './dist/'，则打包后的图片路径将是./dist/assets/images/xxxx.jpg。publicPath表示的是打包生成的index.html文件里面引用资源的前缀
                       }
                     }
-                  ]
+                ]
             }
         ]
     },

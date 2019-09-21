@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "axios": "^0.19.0",
     "loadsh": "^0.0.4",
     "moment": "^2.24.0",
     "vant": "^2.2.1",

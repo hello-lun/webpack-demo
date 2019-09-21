@@ -1,8 +1,5 @@
 import Vue from 'vue';
 import vueRouter from 'vue-router';
-import home from '../views/home/index.vue';
-import nothing from '../views/nothing/index.vue';
-import indexHome from '../views/index/index.vue';
 
 Vue.use(vueRouter);
 
@@ -11,11 +8,11 @@ const router = new vueRouter({
     routes: [
         {
             path: '/info',
-            // component: import(/* webpackChunkName: "group-foo" */ '../views/home/index.vue'),
-            component: home,
+            component: () => import(/* webpackChunkName: "group-foo" */ '../views/home/index.vue'),
         },
-        { path: '/', component: indexHome },
-        { path: '*', component: nothing }
+        { path: '/', component: () => import(/* webpackChunkName: "group-nothing" */ '../views/nothing/index.vue'), },
+
+        { path: '*', component: () => import(/* webpackChunkName: "group-indexHome" */ '../views/index/index.vue'), }
 
     ],
 });

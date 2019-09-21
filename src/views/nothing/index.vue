@@ -1,13 +1,25 @@
 <template>
-  <h1>404</h1>
+  <div>
+    <h1>404</h1>
+    <van-button type="danger" @click="routerPush">危险按钮</van-button>
+  </div>
 </template>
 
 <script>
-export default {
+import { Button } from 'vant';
 
+export default {
+  components: {
+    [Button.name]: Button,
+  },
+  methods: {
+    routerPush () {
+      this.$router.push('/info');
+    }
+  }
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
 
 </style>
