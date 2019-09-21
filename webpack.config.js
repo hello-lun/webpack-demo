@@ -7,22 +7,35 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer');
 
+
+function resolve(dir) {
+    console.log( process.env.NODE_ENV, '环境变量', path.join(__dirname, './', dir));
+    return path.join(__dirname, './', dir);
+}
+
 const config = {
     mode: 'development',
     entry: {
         main: './src/main.js',
     },
     output: {
-        path: path.resolve(__dirname, 'dist'),
+        path: path.resolve(__dirname, './dist'),
         filename: '[name]-[hash:8].js',
+        // publicPath表示打包后的文件的根目录路径(表示的是打包生成的index.html文件里面引用资源的前缀)
+        //假如原本index.html插入的js文件路径为/assets/js/xxxx.js，设置publicPath为./static/的话，则js文件的路径将会变为./static/assets/js/xxxx.js
+        publicPath: process.env.NODE_ENV === 'development' ? '/' : './',
     },
+    devtool: process.env.NODE_ENV === 'development' ? "source-map" : 'none',
     devServer: {
+        // contentBase: path.join(__dirname, './dist'),
+        publicPath: '/',// 如果没有设置，则使用output.publicPath的值
         host: 'localhost',
-        port: '8080',
+        port: '8888',
         open: true, //自动拉起浏览器
         hot: true, //热加载
-        historyApiFallback: {
-            index: '/index.html' //与output的publicPath有关(HTMLplugin生成的html默认为index.html)
+        historyApiFallback: {// 当vue-router设置了mode为history，不配置该设置的话，在开发环境手动刷新页面，会导致not found 404的错误。
+            //与output的publicPath有关(HTMLplugin生成的html默认为index.html)
+            rewrites: [{ from: /.*/, to: path.posix.join('/', 'index.html') }], // 所以页面在刷新的时候都使用/index.html
         },
         //hotOnly:true
     },
@@ -73,6 +86,11 @@ const config = {
                 },
             },
             {
+                test: /\.js$/,
+                loader: 'babel-loader',
+                include: [resolve('src')],
+            },
+            {
                 test: /\.css$/,
                 use: [
                     {
@@ -80,10 +98,19 @@ const config = {
                       options: {
                         // 这里可以指定一个 publicPath
                         // 默认使用 webpackOptions.output中的publicPath
-                        // publicPath: '../'
+                        // publicPath: '../../'
                       },
                     },
                     'css-loader',
+                    'postcss-loader',
+                    // {
+                    //     loader: 'postcss-loader',
+                    //     options: {
+                    //         plugins: [require('autoprefixer')],
+                    //         browser: ['last 10 versions'],
+                    //     },
+                    // }
+                    
                   ],
             },
             {
@@ -102,7 +129,11 @@ const config = {
                       options: {
                         limit: 100,
                         // 把图片打包到dist目录下的assets文件下的images文件夹下
-                        name: path.posix.join('assets', './images/[name]-[hash:5].[ext]'),
+                        // name属性它会根据output.path的路径为根目录，然后做相对路径查找。
+                        // 例如：当前的output.path为/dist/js/,而name: path.posix.join('../assets', './images/[name]-[hash:5].[ext]')，
+                        //则图片打包出来的位置是相对于/dist/js目录下，先../assets,相对目录也就是到了/dist/assets,再在/dist/assets目录下执行./images/，
+                        //最后也就是把图片打包到了/dist/assets/images/
+                        name: path.posix.join('./', './assets/images/[name]-[hash:5].[ext]'),
                       }
                     }
                   ]
@@ -114,12 +145,22 @@ const config = {
 
         new VueLoaderPlugin(),
         new MiniCssExtractPlugin({
-            filename: path.posix.join('assets', 'css/[name].[contenthash].css'),
+            // 把css拆分出来，打包到dist目录下的assets文件夹下的css文件夹下
+            // filename属性它会根据output.path的路径为根目录，然后做相对路径查找。
+            // 例如：当前的output.path为/dist/js/,而filename: path.posix.join('../', './assets/css/[name].[contenthash].css')，
+            //则css打包出来的位置是相对于/dist/js目录下，先../,相对目录也就是到了/dist,再在/dist目录下执行./assets/css/，
+            //最后也就是把css打包到了/dist/assets/css/
+            filename: path.posix.join('./', './assets/css/[name].[contenthash].css'),
         }),
         new HtmlWebpackPlugin({
+            filename: path.resolve(__dirname, './dist/index.html'), // 手动配置转换后的index.html打包后的位置
             template: './index.html',
             title: '您好吗webpack'
         }),
+        // new webpack.DefinePlugin({
+        //     // 注意：此处 webpack.dev.js 中写 'development' ，webpack.prod.js 中写 'production'
+        //     "process.env": JSON.stringify('development')
+        // })
         // new BundleAnalyzerPlugin(),
 
  

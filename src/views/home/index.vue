@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h2>router页面</h2>
+        <h2 class="wrap">router页面</h2>
         <img src="../../assets/img/123.jpg" style="width: 100px;height: 100px;"/>
     </div>
 </template>
@@ -16,11 +16,21 @@ export default {
         }
     },
     created () {
-        console.log(loadsh, 66);
+        let dinglun = () => {
+            console.log(loadsh, '我爱你啊啊啊啊啊啊啊');
+        }
+
+        dinglun();
     }
 }
 </script>
 
-<style>
-
+<style lang="scss" scoped>
+.wrap {
+    width: 100%;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 </style>
