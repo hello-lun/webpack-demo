@@ -11,7 +11,7 @@
 <script>
 import { DropdownMenu, DropdownItem, Dialog } from 'vant';
 import axios from 'axios';
-import './test';
+import abc from './test';
 
 export default {
     data () {

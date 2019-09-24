@@ -1,16 +1,19 @@
-<template>
-  <div>
-    <h1>首页页面</h1>
-    <van-button type="danger" @click="routerPush">危险按钮</van-button>
-  </div>
-</template>
-
 <script>
 import { Button } from 'vant';
 
 export default {
   components: {
     [Button.name]: Button,
+  },
+  render (h) {
+    return h('h1', {
+      style: {color: 'red'},
+      on: {
+        click: this.routerPush,
+      },
+    }, [
+      '我是render函数'
+    ])
   },
   methods: {
     routerPush () {
