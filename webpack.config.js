@@ -20,7 +20,7 @@ const config = {
     },
     output: {
         path: path.resolve(__dirname, './dist'),
-        filename: 'js/[name]-[hash:8].js',
+        filename: 'js/[name]-[chunkhash:8].js',// 使用chunkhash，不使用hash，这样可以起到缓存js的作用。
         // publicPath表示打包后的文件的根目录路径(表示的是打包生成的index.html文件里面引用资源的前缀)
         // 假如原本index.html插入的js文件路径为/assets/js/xxxx.js，设置publicPath为./static/的话，则js文件的路径将会变为./static/assets/js/xxxx.js
         // publicPath只有在index.html第一次插入的js资源或者css资源路径有效，对路由跳转后的页面的图片资源的路径不生效
@@ -94,6 +94,12 @@ const config = {
                 test: /\.js$/,
                 loader: 'babel-loader',
                 include: [resolve('src')],
+                // options: {//如果有这个设置则不用再添加.babelrc文件进行配置
+                //     "babelrc": false,// 不采用.babelrc的配置
+                //     "plugins": [
+                //         "dynamic-import-webpack"
+                //     ]
+                // }
             },
             {
                 test: /\.css$/,

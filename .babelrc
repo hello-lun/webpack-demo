@@ -3,4 +3,9 @@
      ["@babel/preset-env"]
   ],
   "plugins": ["@babel/plugin-syntax-dynamic-import"]
+  // "env": { // 环境变量，package.json中的script字段配置："dev": "BABEL_ENV=development webpack-dev-server XXXX"，执行 npm run dev时，babel-loader则会执行下面development的plugins
+  //   "development": {
+  //     "plugins": ["dynamic-import-node"]
+  //   }
+  // }
 }
