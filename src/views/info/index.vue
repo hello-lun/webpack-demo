@@ -16,7 +16,6 @@ import { Button } from 'vant';
 export default {
     components: {
         [Button.name]: Button,
-        info: () => import(/* webpackChunkName: "infotest-foo" */ './views/info/index.vue'),
     },
     data () {
         return {

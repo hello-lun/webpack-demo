@@ -10,9 +10,9 @@ const router = new vueRouter({
             path: '/info',
             component: () => import(/* webpackChunkName: "group-foo" */ '../views/home/index.vue'),
         },
-        { path: '/', component: () => import(/* webpackChunkName: "group-nothing" */ '../views/nothing/index.vue'), },
+        { path: '/', component: () => import(/* webpackChunkName: "group-nothing" */ '../views/index/index.vue'), },
 
-        { path: '*', component: () => import(/* webpackChunkName: "group-indexHome" */ '../views/index/index.vue'), }
+        { path: '*', component: () => import(/* webpackChunkName: "group-indexHome" */ '../views/nothing/index.vue'), }
 
     ],
 });
