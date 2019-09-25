@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="wrap">
     <h1>404</h1>
     <van-button type="danger" @click="routerPush">危险按钮</van-button>
   </div>
@@ -21,5 +21,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+.wrap {
+  width: 100%;
+  background: pink;
+  color: #dddddd;
+}
 
 </style>

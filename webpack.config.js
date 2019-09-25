@@ -4,6 +4,7 @@ const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer');
 
@@ -22,18 +23,30 @@ const config = {
     },
     output: {
         path: path.resolve(__dirname, './dist'),
-        filename: 'js/[name]-[chunkhash:8].js',// 使用chunkhash，不使用hash，这样可以起到缓存js的作用。
+        // 使用chunkhash，不使用hash，这样可以起到缓存js的作用。（注意：热更新(HMR)不能和[chunkhash]同时使用。
+        //因此开发环境不能使用chunkhash，改换hash。因为[chunkhash]只建议在生成环境使用，开发环境会增加编译时间）
+        filename: 'js/[name]-['+ (devMode ? 'hash' : 'chunkhash') +':8].js',
         // publicPath表示打包后的文件的根目录路径(表示的是打包生成的index.html文件里面引用资源的前缀)
         // 假如原本index.html插入的js文件路径为/assets/js/xxxx.js，设置publicPath为./static/的话，则js文件的路径将会变为./static/assets/js/xxxx.js
         // publicPath只有在index.html第一次插入的js资源或者css资源路径有效，对路由跳转后的页面的图片资源的路径不生效
         publicPath: devMode ? '/' : './',
     },
+    externals: {
+        vue: 'Vue',
+        jquery: 'jQuery',
+        "lodash": {
+            commonjs: "lodash",//如果我们的库运行在Node.js环境中，import _ from 'lodash'等价于const _ = require('lodash')
+            commonjs2: "lodash",//同上
+            amd: "lodash",//如果我们的库使用require.js等加载,等价于 define(["lodash"], factory);
+            root: "_"//如果我们的库在浏览器中使用，需要提供一个全局的变量‘_’，等价于 var _ = (window._) or (_);
+        }
+    },
     devtool: devMode ? "source-map" : 'none',
     devServer: {
         // contentBase: path.join(__dirname, './dist/assets'),
-        publicPath: '/',// 如果没有设置，则使用output.publicPath的值
+        // publicPath: '/',// 如果没有设置，则使用output.publicPath的值
         host: 'localhost',
-        port: '8888',
+        port: '8088',
         open: true, //自动拉起浏览器
         hot: true, //热加载
         historyApiFallback: {// 当vue-router设置了mode为history，不配置该设置的话，在开发环境手动刷新页面，会导致not found 404的错误。
@@ -54,11 +67,11 @@ const config = {
         automaticNameDelimiter: '~',
         name: true,
         cacheGroups: {
-            vueDing: {
-                test:/[\\/]node_modules[\\/](vue)|(vue-router)/,
-                priority: 3,
-                chunks: 'initial',
-            },
+            // vueDing: {
+            //     test:/[\\/]node_modules[\\/](vue)|(vue-router)/,
+            //     priority: 3,
+            //     chunks: 'initial',
+            // },
             vantDing: {
                 test:/[\\/]node_modules[\\/](vant)/,
                 priority: 2, // 优先级，假如cacheGroups里面存在多个组的test都匹配成功的话，优先级越高的奏效
@@ -133,7 +146,7 @@ const config = {
                         name: path.posix.join('./', './assets/images/[name]-[hash:5].[ext]'),
                         publicPath: devMode ? '/' : './dist/', //如果不设置publicPath，那么打包后的图片路径将是./assets/images/xxxx.jpg。
                         // 如果publicPath: './dist/'，则打包后的图片路径将是./dist/assets/images/xxxx.jpg。publicPath表示的是打包生成的index.html文件里面引用资源的前缀
-                      }
+                      },
                     }
                 ]
             }
@@ -146,6 +159,7 @@ const config = {
         new HtmlWebpackPlugin({
             filename: path.resolve(__dirname, './dist/index.html'), // 手动配置转换后的index.html打包后的位置
             template: './index.html',
+            staticPath: './',
             title: '您好吗webpack'
         }),
         // new webpack.DefinePlugin({
@@ -154,6 +168,14 @@ const config = {
         // }),
         // new BundleAnalyzerPlugin(),
 
+        // 配合externals配置项使用
+        new CopyWebpackPlugin([
+            {
+                from: path.resolve(__dirname, './static'),
+                to: './static',
+                ignore: ['.*'],
+            },
+        ]),
  
     ]
 };
@@ -165,7 +187,7 @@ const config = {
         // 例如：当前的output.path为/dist/js/,而filename: path.posix.join('../', './assets/css/[name].[contenthash].css')，
         //则css打包出来的位置是相对于/dist/js目录下，先../,相对目录也就是到了/dist,再在/dist目录下执行./assets/css/，
         //最后也就是把css打包到了/dist/assets/css/
-        filename: devMode ? '[name].css' : path.posix.join('./', './assets/css/[name].[hash].css'),
+        filename: devMode ? '[name].css' : path.posix.join('./', './assets/css/[name].[contenthash].css'),
     })
 );
 

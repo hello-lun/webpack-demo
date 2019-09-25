@@ -1,5 +1,6 @@
 <script>
 import { Button } from 'vant';
+import jquery from 'jquery';
 
 export default {
   components: {
@@ -7,16 +8,26 @@ export default {
   },
   render (h) {
     return h('h1', {
-      style: {color: 'red'},
+      style: {color: 'orange'},
       on: {
         click: this.routerPush,
       },
     }, [
-      '我是render函数'
-    ])
+      '我是render函数',
+      h('img', {
+      attrs: {
+        src: '/dist/static/img/816.jpg',
+      },
+      style: {
+        width: '200px',
+        height: '150px'
+      },
+    })
+    ],)
   },
   methods: {
     routerPush () {
+      console.log(jquery);
       this.$router.push('/info');
     }
   }
