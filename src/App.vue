@@ -6,7 +6,6 @@
 
 <script>
 // import home from './views/home/index.vue';
-import loadsh from 'loadsh'
 
 export default {
   name: 'index',

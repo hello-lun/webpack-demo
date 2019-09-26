@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import VueTree from "./Tree.vue";
+import VueTree from './Tree.vue';
 
 export default {
   name: 'app',
@@ -13,27 +13,27 @@ export default {
     return {
       treeData2: [
         {
-          text: "一级", // 显示的文字
+          text: '一级', // 显示的文字
           expand: false, // 默认是否展开
           children: [
             {
-              text: "二级-1",
+              text: '二级-1',
               expand: false,
             },
             {
-              text: "二级-2",
+              text: '二级-2',
               expand: false,
               children: [
                 {
-                  text: "三级-1",
+                  text: '三级-1',
                   expand: false,
                 },
                 {
-                  text: "三级-2",
+                  text: '三级-2',
                   expand: false,
                   children: [
                     {
-                      text: "四级-1",
+                      text: '四级-1',
                       expand: false,
                     }
                   ]
@@ -43,7 +43,7 @@ export default {
           ]
         },
         {
-          text: "一级-2",
+          text: '一级-2',
           expand: false
         }
       ]
@@ -51,7 +51,7 @@ export default {
   },
   methods: {
     treeClickEvent(item, treeItem){
-      console.log(item);
+      console.log(item, treeItem);
     }
   },
   components: {

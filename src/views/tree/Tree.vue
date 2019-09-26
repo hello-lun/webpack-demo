@@ -9,29 +9,29 @@
 </template>
 
 <script>
-  import TreeItem from "./TreeItem.vue";
-  export default {
-    name: "VueTreeMenu",
-    components: {
-      TreeItem
+import TreeItem from './TreeItem.vue';
+export default {
+  name: 'VueTreeMenu',
+  components: {
+    TreeItem
+  },
+  props: {
+    // 树形控件数据
+    treeData: {
+      type: Array,
+      default(){
+        return [];
+      }
     },
-    props: {
-     // 树形控件数据
-      treeData: {
-        type: Array,
-        default(){
-          return [];
-        }
-      },
-      // 节点点击事件
-      treeClickEvent: {
-        type: Function,
-        default() {
-          return function () {};
-        }
+    // 节点点击事件
+    treeClickEvent: {
+      type: Function,
+      default() {
+        return function () {};
       }
     }
   }
+}
 </script>
 
 <style lang="scss" scoped>
