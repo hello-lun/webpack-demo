@@ -1,38 +1,38 @@
 <template>
   <div id="app">
-    <router-view></router-view>
+    <router-view />
   </div>
 </template>
 
 <script>
 // import home from './views/home/index.vue';
+import loadsh from 'loadsh';
 
 export default {
   name: 'index',
 
   data() {
-    return {
-    };
+    return {};
   },
 
   computed: {},
 
-  methods: {
-
+  mounted() {
+    console.log(loadsh);
   },
 
-  mounted() {},
+  methods: {}
 };
 </script>
 
 <style lang="scss" scoped>
-  .wrap {
-    color: red;
+.wrap {
+  color: red;
 
-    &-p {
-      font-size: 25px;
-      color: orange;
-    }
+  &-p {
+    font-size: 25px;
+    color: orange;
   }
-</style>>
-
+}
+</style>
+>

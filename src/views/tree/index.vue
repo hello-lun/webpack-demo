@@ -1,6 +1,6 @@
 <template>
-  <div class="app" id="app">
-    <VueTree :tree-data="treeData2" :tree-click-event="treeClickEvent"></VueTree>
+  <div id="app" class="app">
+    <VueTree :tree-data="treeData2" :tree-click-event="treeClickEvent" />
   </div>
 </template>
 
@@ -9,7 +9,10 @@ import VueTree from './Tree.vue';
 
 export default {
   name: 'app',
-  data(){
+  components: {
+    VueTree
+  },
+  data() {
     return {
       treeData2: [
         {
@@ -18,7 +21,7 @@ export default {
           children: [
             {
               text: '二级-1',
-              expand: false,
+              expand: false
             },
             {
               text: '二级-2',
@@ -26,7 +29,7 @@ export default {
               children: [
                 {
                   text: '三级-1',
-                  expand: false,
+                  expand: false
                 },
                 {
                   text: '三级-2',
@@ -34,7 +37,7 @@ export default {
                   children: [
                     {
                       text: '四级-1',
-                      expand: false,
+                      expand: false
                     }
                   ]
                 }
@@ -47,15 +50,12 @@ export default {
           expand: false
         }
       ]
-    }
+    };
   },
   methods: {
-    treeClickEvent(item, treeItem){
+    treeClickEvent(item, treeItem) {
       console.log(item, treeItem);
     }
-  },
-  components: {
-    VueTree
   }
-}
+};
 </script>
