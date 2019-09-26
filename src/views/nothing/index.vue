@@ -6,26 +6,24 @@
 </template>
 
 <script>
-import { Button } from 'vant';
+import { Button } from 'vant'
 
 export default {
   components: {
-    [Button.name]: Button,
+    [Button.name]: Button
   },
   methods: {
-    routerPush () {
-      this.$router.push('/info');
+    routerPush() {
+      this.$router.push('/info')
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-
 .wrap {
   width: 100%;
   background: pink;
   color: #dddddd;
 }
-
 </style>
