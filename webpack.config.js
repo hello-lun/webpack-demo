@@ -5,7 +5,8 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-
+const glob = require('glob');
+const PurgecssPlugin = require('purgecss-webpack-plugin');
 const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer');
 
 
@@ -163,6 +164,9 @@ const config = {
             }
         ]
     },
+    resolve: {
+        extensions: [".js", ".jsx", ".json", ".css", ".ts", ".tsx", ".vue"]
+    },
     plugins: [
         new CleanWebpackPlugin(),
 
@@ -187,6 +191,9 @@ const config = {
                 ignore: ['.*'],
             },
         ]),
+        new PurgecssPlugin({
+            paths: glob.sync(`${path.join(__dirname, "src")}/**/*`, { nodir: true }) // 不匹配目录，只匹配文件
+        }),
  
     ]
 };

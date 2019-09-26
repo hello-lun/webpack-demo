@@ -1,5 +1,8 @@
 <template>
-  <li class="tree-item" :class="{ expand: isExpand, 'no-child': !treeItemData.children || treeItemData.children.length === 0 }">
+  <li
+    class="tree-item"
+    :class="{ expand: isExpand, 'no-child': !treeItemData.children || treeItemData.children.length === 0 }"
+  >
     <div class="tree-content" @click="_clickEvent">
       <div class="expand-arrow" @click.stop="expandTree()" />
       <div class="tree-label">{{ treeItemData.text }}</div>
@@ -64,6 +67,7 @@ export default {
       // 如果有传递事件函数，则调用事件函数并传递当前节点数据及组件
       if (this.treeClickEvent && typeof this.treeClickEvent === 'function') {
         this.treeClickEvent(this.treeItemData, this);
+        console.log(this.treeItemData);
       }
     }
   }
@@ -72,6 +76,6 @@ export default {
 
 <style lang="scss" scoped>
 .tree-item {
-  padding-left: 50px;
+  padding-left: 20px;
 }
 </style>

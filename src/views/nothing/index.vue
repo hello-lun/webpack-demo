@@ -2,17 +2,25 @@
   <div class="wrap">
     <h1>404</h1>
     <van-button type="danger" @click="routerPush">危险按钮</van-button>
+    <func info="name" age="23" @clikcInfo="clikcInfo">
+      <strong slot="strong" style="color: pink;">强壮</strong>
+    </func>
   </div>
 </template>
 
 <script>
 import { Button } from 'vant';
+import func from './funcional';
 
 export default {
   components: {
-    [Button.name]: Button
+    [Button.name]: Button,
+    func
   },
   methods: {
+    clikcInfo() {
+      console.log(4444);
+    },
     routerPush() {
       this.$router.push('/info');
     }
@@ -23,7 +31,6 @@ export default {
 <style lang="scss" scoped>
 .wrap {
   width: 100%;
-  background: pink;
   color: #dddddd;
 }
 </style>

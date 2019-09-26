@@ -54,7 +54,7 @@ export default {
   },
   methods: {
     treeClickEvent(item, treeItem) {
-      console.log(item, treeItem);
+      // console.log(item, treeItem);
     }
   }
 };

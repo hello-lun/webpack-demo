@@ -43,7 +43,7 @@ module.exports = {
         htmlWhitespaceSensitivity: 'ignore',
         semi: true, // 是否需要分号
         singleQuote: true, // 是否使用单引号
-        printWidth: 140, // 一行代码超过140个字符就换行
+        printWidth: 120, // 一行代码超过140个字符就换行
       }
     ],
     'vue/html-self-closing': [

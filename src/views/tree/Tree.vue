@@ -1,6 +1,11 @@
 <template>
   <ul class="vue-tree">
-    <TreeItem v-for="(item, index) in treeData" :key="index" :tree-item-data="item" :tree-click-event="treeClickEvent" />
+    <TreeItem
+      v-for="(item, index) in treeData"
+      :key="index"
+      :tree-item-data="item"
+      :tree-click-event="treeClickEvent"
+    />
   </ul>
 </template>
 
