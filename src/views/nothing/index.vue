@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import { Button } from 'vant'
+import { Button } from 'vant';
 
 export default {
   components: {
@@ -14,10 +14,10 @@ export default {
   },
   methods: {
     routerPush() {
-      this.$router.push('/info')
+      this.$router.push('/info');
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>

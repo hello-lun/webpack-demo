@@ -1,6 +1,6 @@
 <script>
-import { Button } from 'vant'
-import jquery from 'jquery'
+import { Button } from 'vant';
+import jquery from 'jquery';
 
 export default {
   components: {
@@ -8,8 +8,8 @@ export default {
   },
   methods: {
     routerPush() {
-      console.log(jquery)
-      this.$router.push('/info')
+      console.log(jquery);
+      this.$router.push('/info');
     }
   },
   render(h) {
@@ -33,9 +33,9 @@ export default {
           }
         })
       ]
-    )
+    );
   }
-}
+};
 </script>
 
 <style lang="scss" scoped></style>

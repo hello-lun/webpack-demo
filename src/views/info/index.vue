@@ -10,8 +10,8 @@
 </template>
 
 <script>
-import loadsh from 'loadsh'
-import { Button } from 'vant'
+import loadsh from 'loadsh';
+import { Button } from 'vant';
 
 export default {
   components: {
@@ -20,21 +20,21 @@ export default {
   data() {
     return {
       show: ''
-    }
+    };
   },
   created() {
-    console.log(loadsh, 666)
+    console.log(loadsh, 666);
   },
   methods: {
     test() {
       // let loadsh = import('loadsh');
-      this.show = 'info'
+      this.show = 'info';
     },
     routerPush() {
-      this.$router.push('/info')
+      this.$router.push('/info');
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped></style>
