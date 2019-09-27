@@ -18,7 +18,7 @@ function resolve(dir) {
 const devMode = process.env.NODE_ENV !== 'production';
 
 const config = {
-    mode: process.env.NODE_ENV,
+    mode: 'development',
     entry: {
         main: './src/main.js',
     },
@@ -119,6 +119,16 @@ const config = {
                 },
             },
             {
+              test:/\.tsx?/,
+              use: {
+                loader:'ts-loader',
+                options: {
+                    appendTsSuffixTo: [/\.vue$/],
+                }, 
+              },
+              exclude: /node_modules/,
+            },
+            {
                 test: /\.js$/,
                 loader: 'babel-loader',
                 include: [resolve('src')],
@@ -206,7 +216,7 @@ devMode && config.module.rules.push({
     include: [path.resolve(__dirname, 'src')],
     //eslint检查报告的格式规范
     options: {
-      formatter: require("eslint-friendly-formatter")
+      formatter: require("eslint-friendly-formatter"),
     },
 },);
 

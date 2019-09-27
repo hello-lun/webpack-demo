@@ -12,7 +12,7 @@ export default {
     }
   },
   render(h, context) {
-    console.log(context.slots(), 'listeners');
+    console.log(context, 'listeners');
     return h('div', null, [
       h(
         'h2',

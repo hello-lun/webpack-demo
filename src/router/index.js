@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import vueRouter from 'vue-router';
+import beforeRoute from './beforeRoute';
 
 Vue.use(vueRouter);
 
@@ -17,5 +18,7 @@ const router = new vueRouter({
     { path: '*', component: () => import(/* webpackChunkName: "group-indexHome" */ '../views/nothing/index.vue') }
   ]
 });
+
+beforeRoute(router);
 
 export default router;

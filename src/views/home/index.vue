@@ -5,6 +5,32 @@
       <van-dropdown-item v-model="value2" :options="option2" />
     </van-dropdown-menu>
     <img src="../../assets/img/123.jpg" style="width: 100px;height: 100px;" @click="dialog" />
+    <div
+      v-jieliu="{ on: 'scroll', func: test }"
+      style="width: 300px;height: 200px;overflow: auto;border: 1px solid #ddd;"
+      @click="dialog"
+    >
+      <p>w8575465949</p>
+      <p>w8575465949</p>
+      <p>w8575465949</p>
+      <p>w8575465949</p>
+      <p>w8575465949</p>
+      <p>w8575465949</p>
+      <p>w8575465949</p>
+      <p>w8575465949</p>
+      <p>w8575465949</p>
+      <p>w8575465949</p>
+      <p>w8575465949</p>
+      <p>w8575465949</p>
+      <p>w8575465949</p>
+      <p>w8575465949</p>
+      <p>w8575465949</p>
+      <p>w8575465949</p>
+      <p>w8575465949</p>
+      <p>w8575465949</p>
+      <p>w8575465949</p>
+      <p>w8575465949</p>
+    </div>
   </div>
 </template>
 
@@ -16,6 +42,22 @@ export default {
   components: {
     [DropdownMenu.name]: DropdownMenu,
     [DropdownItem.name]: DropdownItem
+  },
+  directives: {
+    jieliu: {
+      bind: function(el, binding, vnode) {
+        console.log(binding, 777, vnode);
+        function debounce(fn, wait) {
+          let timeout = null;
+          return function() {
+            if (timeout !== null) clearTimeout(timeout);
+            timeout = setTimeout(fn, wait);
+          };
+        }
+
+        el.addEventListener(binding.value.on, debounce(binding.value.func, 2000));
+      }
+    }
   },
   data() {
     return {
@@ -39,6 +81,9 @@ export default {
     dinglun();
   },
   methods: {
+    test() {
+      console.log(56666);
+    },
     dialog() {
       Dialog.confirm({
         title: '标题',

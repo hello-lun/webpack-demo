@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <ul class="vue-tree">
     <TreeItem
       v-for="(item, index) in treeData"

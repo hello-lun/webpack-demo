@@ -12,7 +12,7 @@ module.exports = {
     sourceType: 'module',
     //支持其他的语言特性
     ecmaFeatures: {
-      //...
+      legacyDecorators: true,// 支持typescript的装饰器
     }
   },
   //代码运行的环境，每个环境都会有一套预定义的全局对象，不同环境可以组合使用
@@ -54,19 +54,13 @@ module.exports = {
         }
       }
     ],
+    'no-unused-vars': 'error',
     'vue/no-use-v-if-with-v-for': ['off'],
     'vue/component-name-in-template-casing': ['off'],
     'vue/name-property-casing': ['off'],
     'vue/no-unused-components': ['off'],
     //关闭“禁用console”规则
     'no-console': 'off',
-    //缩进不规范警告，要求缩进为2个空格，默认值为4个空格
-    'indent': ['warn', 2, {
-      //设置为1时强制switch语句中case的缩进为2个空格
-      'SwitchCase': 1,
-      //分别配置var、let和const的缩进
-      'VariableDeclarator': { 'var': 2, 'let': 2, 'const': 3 }
-    }],
     //定义字符串不规范错误，要求字符串使用双引号
     quotes: ['error', 'single'],
     //....
