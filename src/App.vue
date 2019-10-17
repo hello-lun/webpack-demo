@@ -34,5 +34,13 @@ export default {
     color: orange;
   }
 }
+
+.skeleton {
+  &::before {
+    content: '雕刻技法v地';
+    color: red;
+    font-size: 30px;
+  }
+}
 </style>
 >

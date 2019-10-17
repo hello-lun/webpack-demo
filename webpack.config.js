@@ -9,7 +9,6 @@ const glob = require('glob');
 const PurgecssPlugin = require('purgecss-webpack-plugin');
 const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer');
 
-
 function resolve(dir) {
     console.log( process.env.NODE_ENV, '环境变量', path.join(__dirname, './', dir));
     return path.join(__dirname, './', dir);
@@ -99,17 +98,6 @@ const config = {
     module: {
         rules: [
             {
-                test: /\.(js|vue)$/,
-                loader: "eslint-loader",
-                enforce: "pre",
-                //指定检查的目录
-                include: [path.resolve(__dirname, 'src')],
-                //eslint检查报告的格式规范
-                options: {
-                  formatter: require("eslint-friendly-formatter")
-                },
-            },
-            {
                 test: /\.vue$/,
                 use: {
                     loader: 'vue-loader',
@@ -142,7 +130,7 @@ const config = {
             {
                 test: /\.(sa|sc|c)ss$/,
                 use: [
-                devMode ? 'style-loader' : {
+                !devMode ? 'style-loader' : {
                     loader: MiniCssExtractPlugin.loader,
                     options: {
                       hmr: process.env.NODE_ENV === 'development',
@@ -187,6 +175,7 @@ const config = {
             staticPath: './',
             title: '您好吗webpack'
         }),
+
         // new webpack.DefinePlugin({
         //     // 注意：此处 webpack.dev.js 中写 'development' ，webpack.prod.js 中写 'production'
         //     "process.env": JSON.stringify('development')
@@ -208,19 +197,19 @@ const config = {
     ]
 };
 
-devMode && config.module.rules.push({
-    test: /\.(js|vue)$/,
-    loader: "eslint-loader",
-    enforce: "pre",
-    //指定检查的目录
-    include: [path.resolve(__dirname, 'src')],
-    //eslint检查报告的格式规范
-    options: {
-      formatter: require("eslint-friendly-formatter"),
-    },
-},);
+// devMode && config.module.rules.push({
+//     test: /\.(js|vue)$/,
+//     loader: "eslint-loader",
+//     enforce: "pre",
+//     //指定检查的目录
+//     include: [path.resolve(__dirname, 'src')],
+//     //eslint检查报告的格式规范
+//     options: {
+//       formatter: require("eslint-friendly-formatter"),
+//     },
+// },);
 
-!devMode && config.plugins.push(
+devMode && config.plugins.push(
     new MiniCssExtractPlugin({
         // 把css拆分出来，打包到dist目录下的assets文件夹下的css文件夹下
         // filename属性它会根据output.path的路径为根目录，然后做相对路径查找。

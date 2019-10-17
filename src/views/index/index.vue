@@ -1,14 +1,15 @@
 <script>
 import { Button } from 'vant';
-import jquery from 'jquery';
+import tscom from '../ts/index';
 
 export default {
   components: {
-    [Button.name]: Button
+    [Button.name]: Button,
+    tscom
   },
   methods: {
     routerPush() {
-      console.log(jquery);
+      console.log(jQuery, 11189);
       this.$router.push('/info');
     }
   },
@@ -22,16 +23,8 @@ export default {
         }
       },
       [
-        '我是render函数',
-        h('img', {
-          attrs: {
-            src: '/dist/static/img/816.jpg'
-          },
-          style: {
-            width: '200px',
-            height: '150px'
-          }
-        })
+        '我是首页',
+        // h(tscom)
       ]
     );
   }

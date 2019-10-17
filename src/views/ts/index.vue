@@ -8,8 +8,7 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import Component from 'vue-class-component';
+import { Component, Vue } from 'vue-property-decorator';
 
 @Component
 export default class App extends Vue {
@@ -18,7 +17,7 @@ export default class App extends Vue {
 
   // 声明周期钩子
   mounted() {
-    this.greet();
+    this.greet(546);
   }
 
   // 计算属性
@@ -27,8 +26,9 @@ export default class App extends Vue {
   }
 
   // 方法
-  greet() {
-    alert('greeting: ' + this.msg);
+  greet<T>(name: T): T {
+    console.log('greeting: ' + this.msg);
+    return name;
   }
 }
 </script>

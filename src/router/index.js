@@ -9,13 +9,47 @@ const router = new vueRouter({
   routes: [
     {
       path: '/info',
-      component: () => import(/* webpackChunkName: "group-foo" */ '../views/home/index.vue')
+      component: () => {
+        document.getElementById('app').style.display = 'none';
+        document.body.classList.remove('body-wrap-hidden');
+        document.body.classList.add('body-wrap-show');
+        return import(/* webpackChunkName: "group-foo" */ '../views/home/index.vue').then(res => {
+          document.body.classList.remove('body-wrap-show');
+          document.body.classList.add('body-wrap-hidden');
+          return res;
+        })
+      },
     },
-    { path: '/tree', component: () => import(/* webpackChunkName: "group-nothing" */ '../views/tree/index.vue') },
+    { path: '/tree', component: () => {
+        return import(/* webpackChunkName: "group-nothing" */ '../views/tree/index.vue')
+      }
+    },
 
-    { path: '/', component: () => import(/* webpackChunkName: "group-nothing" */ '../views/index/index.vue') },
+    { path: '/', component: () => {
+      let body = document.body;
+        document.getElementById('app').style.display = 'none';
+        body.classList.remove('body-wrap-hidden');
+        body.classList.add('body-wrap-show');
+        return import(/* webpackChunkName: "group-nothing" */ '../views/index/index.vue').then(res => {
+          body.classList.remove('body-wrap-show');
+          body.classList.add('body-wrap-hidden');
+          body = null;
+          return res;
+        })
+      }
+    },
 
-    { path: '*', component: () => import(/* webpackChunkName: "group-indexHome" */ '../views/nothing/index.vue') }
+    { path: '*', component: () => {
+        document.getElementById('app').style.display = 'none';
+        document.body.classList.remove('body-wrap-hidden');
+        document.body.classList.add('body-wrap-show');
+        return import(/* webpackChunkName: "group-indexHome" */ '../views/nothing/index.vue').then(res => {
+          document.body.classList.remove('body-wrap-show');
+          document.body.classList.add('body-wrap-hidden');
+          return res;
+        })
+      }
+    }
   ]
 });
 

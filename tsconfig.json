@@ -1,17 +1,18 @@
 {
-  "compilerOptions": {
-      "module": "es2015",
-      "target": "es5",
-      "sourceMap": true,
-      "allowJs": true,
-      "strict": true,
-      "moduleResolution": "node",
-      "experimentalDecorators": true
-  },
-  "include": [
-      "./src/**/*"
-  ],
-  "exclude": [
-      "node_modules"
-  ]
+    "compilerOptions": {
+        "module": "es2015",
+        "target": "es5",
+        "sourceMap": true,
+        "allowJs": true,
+        "strict": true,
+        "moduleResolution": "node",
+        "experimentalDecorators": true
+    },
+    "include": [
+        "./src/**/*"
+    ],
+    "exclude": [
+        "node_modules",
+        "**/*.spec.ts"
+    ]
 }

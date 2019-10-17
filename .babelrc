@@ -1,8 +1,11 @@
 {
   "presets": [
-     ["@babel/preset-env"]
+    ["@babel/preset-env",{
+      "useBuiltIns": "usage", // 按需加载
+      "corejs":2 // corejs 替代了以前的pollyfill
+    }]
   ],
-  "plugins": ["@babel/plugin-syntax-dynamic-import"]
+  "plugins": ["@babel/plugin-syntax-dynamic-import","@babel/plugin-transform-runtime"]
   // "env": { // 环境变量，package.json中的script字段配置："dev": "BABEL_ENV=development webpack-dev-server XXXX"，执行 npm run dev时，babel-loader则会执行下面development的plugins
   //   "development": {
   //     "plugins": ["dynamic-import-node"]

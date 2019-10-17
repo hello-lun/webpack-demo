@@ -1,12 +1,13 @@
 <template>
   <div>
-    <van-dropdown-menu>
+    <h1 style="color: red;" @click="dinglun">我是详情页面</h1>
+    <!-- <van-dropdown-menu>
       <van-dropdown-item v-model="value1" :options="option1" />
       <van-dropdown-item v-model="value2" :options="option2" />
     </van-dropdown-menu>
-    <img src="../../assets/img/123.jpg" style="width: 100px;height: 100px;" @click="dialog" />
+    <img src="../../assets/img/123.jpg" style="width: 100px;height: 100px;" @click="dinglun" />
     <div
-      v-jieliu="{ on: 'scroll', func: test }"
+      v-jieliu="{ scroll: test, click: test }"
       style="width: 300px;height: 200px;overflow: auto;border: 1px solid #ddd;"
       @click="dialog"
     >
@@ -30,7 +31,7 @@
       <p>w8575465949</p>
       <p>w8575465949</p>
       <p>w8575465949</p>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -38,26 +39,49 @@
 import { DropdownMenu, DropdownItem, Dialog } from 'vant';
 import axios from 'axios';
 
+function skfleiv () {
+  function debounce(fn, wait) {
+    let timeout = null;
+    return function() {
+      if (timeout !== null) clearTimeout(timeout);
+      timeout = setTimeout(fn, wait);
+    };
+  }
+
+  let jieliumap = new Map();
+
+  return {
+    bind: function(el, binding, vnode) {
+      for (let key in binding.value) {
+        if (Object.prototype.toString.call(binding.value[key]) !== '[object Function]') {
+          console.error('参数类型应为函数');
+          continue;
+        }
+        
+        jieliumap.set(el, debounce(binding.value[key], 2000));
+        el.addEventListener(key, jieliumap.get(el));
+      }
+    },
+    unbind: function(el, binding) {
+      for (let key in binding.value) {
+        if (Object.prototype.toString.call(binding.value[key]) !== '[object Function]') {
+          continue;
+        }
+
+        el.removeEventListener(key, jieliumap.get(el));
+      }
+    }
+  }
+}
+
 export default {
+  name: 'home-info',
   components: {
     [DropdownMenu.name]: DropdownMenu,
     [DropdownItem.name]: DropdownItem
   },
   directives: {
-    jieliu: {
-      bind: function(el, binding, vnode) {
-        console.log(binding, 777, vnode);
-        function debounce(fn, wait) {
-          let timeout = null;
-          return function() {
-            if (timeout !== null) clearTimeout(timeout);
-            timeout = setTimeout(fn, wait);
-          };
-        }
-
-        el.addEventListener(binding.value.on, debounce(binding.value.func, 2000));
-      }
-    }
+    jieliu: skfleiv()
   },
   data() {
     return {
@@ -81,6 +105,9 @@ export default {
     dinglun();
   },
   methods: {
+    dinglun () {
+      this.$router.push('./insd66');
+    },
     test() {
       console.log(56666);
     },
