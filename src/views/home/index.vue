@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1 style="color: red;" @click="dinglun">我是详情页面</h1>
-    <!-- <van-dropdown-menu>
+    <van-dropdown-menu>
       <van-dropdown-item v-model="value1" :options="option1" />
       <van-dropdown-item v-model="value2" :options="option2" />
     </van-dropdown-menu>
@@ -11,27 +11,9 @@
       style="width: 300px;height: 200px;overflow: auto;border: 1px solid #ddd;"
       @click="dialog"
     >
-      <p>w8575465949</p>
-      <p>w8575465949</p>
-      <p>w8575465949</p>
-      <p>w8575465949</p>
-      <p>w8575465949</p>
-      <p>w8575465949</p>
-      <p>w8575465949</p>
-      <p>w8575465949</p>
-      <p>w8575465949</p>
-      <p>w8575465949</p>
-      <p>w8575465949</p>
-      <p>w8575465949</p>
-      <p>w8575465949</p>
-      <p>w8575465949</p>
-      <p>w8575465949</p>
-      <p>w8575465949</p>
-      <p>w8575465949</p>
-      <p>w8575465949</p>
-      <p>w8575465949</p>
-      <p>w8575465949</p>
-    </div> -->
+      <p>版本----001</p>
+
+    </div>
   </div>
 </template>
 
