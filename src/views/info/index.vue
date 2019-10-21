@@ -1,6 +1,8 @@
 <template>
   <div>
     <h2>我是详情页面</h2>
+    <h2>版本3</h2>
+
     <!-- <component :is="show" />
     <h3 @click="test">点这里</h3>
     <van-button type="danger" @click="routerPush">危险按钮</van-button>
